@@ -41,7 +41,7 @@ const FAQ: React.FC = () => {
     },
     {
       question: 'How do I place an order?',
-      answer: 'You can order in three ways: 1) Add to cart on our website and checkout, 2) Call us at +254 078 440 0492, or 3) Use WhatsApp to place your order directly.',
+      answer: 'You can order in three ways: 1) Add to cart on our website and checkout, 2) Call us at +254784400492, or 3) Use WhatsApp to place your order directly.',
       icon: Phone,
     },
   ];
@@ -123,7 +123,7 @@ const FAQ: React.FC = () => {
             className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             <Phone className="w-5 h-5" />
-            Call +254 078 440 0492
+            Call +254784400492
           </a>
         </motion.div>
       </div>

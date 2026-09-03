@@ -361,7 +361,7 @@ export default function Home() {
                 className="flex-1 sm:flex-none min-w-[160px] md:min-w-[200px] inline-flex items-center justify-center gap-2 bg-white text-navy-900 hover:bg-gray-100 text-sm md:text-base lg:text-lg font-bold py-3 md:py-4 px-4 md:px-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer"
               >
                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-orange-500" />
-                +254 078 440 0492
+                +254784400492
               </a>
             </div>
             

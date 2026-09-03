@@ -119,7 +119,7 @@ const Footer = () => {
                 <div>
                   <p className="text-sm text-gray-400">Phone</p>
                   <a href="tel:+2540784400492" className="text-white hover:text-orange-500 transition-colors text-sm">
-                    +254 078 440 0492
+                    +254784400492
                   </a>
                 </div>
               </div>
@@ -128,7 +128,7 @@ const Footer = () => {
                 <div>
                   <p className="text-sm text-gray-400">WhatsApp</p>
                   <a href="https://wa.me/2540784400492" target="_blank" rel="noopener noreferrer" className="text-white hover:text-orange-500 transition-colors text-sm">
-                    +254 078 440 0492
+                    +254784400492
                   </a>
                 </div>
               </div>

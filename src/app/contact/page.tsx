@@ -40,7 +40,7 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Phone',
-      details: ['+254 078 440 0492'],
+      details: ['+254784400492'],
       action: 'tel:+2540784400492',
       color: 'bg-green-100 text-green-600',
     },

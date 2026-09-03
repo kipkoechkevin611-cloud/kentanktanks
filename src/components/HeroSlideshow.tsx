@@ -159,7 +159,7 @@ const HeroSlideshow = () => {
                       <div className="flex items-center gap-3 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/30">
                         <Phone className="w-6 h-6 text-orange-500" />
                         <a href="tel:+2540784400492" className="text-lg font-bold text-white hover:text-orange-400 transition-colors">
-                          +254 078 440 0492
+                          +254784400492
                         </a>
                       </div>
                     </motion.div>

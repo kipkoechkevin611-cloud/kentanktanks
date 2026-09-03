@@ -66,11 +66,11 @@ const Chatbot = () => {
     }
 
     if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('call')) {
-      return "You can reach us at:\n• Phone: +254 078 440 0492\n• WhatsApp: +254 078 440 0492\n• Email: info@kentank.co.ke\n\nOur team is available Mon-Sat, 8AM-6PM.";
+      return "You can reach us at:\n• Phone: +254784400492\n• WhatsApp: +254784400492\n• Email: info@kentank.co.ke\n\nOur team is available Mon-Sat, 8AM-6PM.";
     }
 
     if (lowerMessage.includes('order') || lowerMessage.includes('buy') || lowerMessage.includes('purchase')) {
-      return "You can order in three ways:\n1. Add to cart on our website and checkout\n2. Call us at +254 078 440 0492\n3. Use WhatsApp to place your order\n\nWhich method would you prefer?";
+      return "You can order in three ways:\n1. Add to cart on our website and checkout\n2. Call us at +254784400492\n3. Use WhatsApp to place your order\n\nWhich method would you prefer?";
     }
 
     if (lowerMessage.includes('kebs') || lowerMessage.includes('certified') || lowerMessage.includes('quality')) {
@@ -117,7 +117,7 @@ const Chatbot = () => {
       return "Thank you for chatting with Kentank! Feel free to reach out anytime. Have a great day!";
     }
 
-    return "I'd be happy to help with that! You can:\n• Browse our products page for detailed information\n• Call us at +254 078 440 0492 for immediate assistance\n• Use WhatsApp to place an order\n\nAsk me about prices, delivery, warranty, tank types, sizes, installation, or anything else about water tanks!";
+    return "I'd be happy to help with that! You can:\n• Browse our products page for detailed information\n• Call us at +254784400492 for immediate assistance\n• Use WhatsApp to place an order\n\nAsk me about prices, delivery, warranty, tank types, sizes, installation, or anything else about water tanks!";
   };
 
   const handleSendMessage = async () => {
