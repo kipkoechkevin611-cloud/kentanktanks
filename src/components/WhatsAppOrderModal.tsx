@@ -91,6 +91,7 @@ const WhatsAppOrderModal: React.FC<WhatsAppOrderModalProps> = ({ isOpen, onClose
         setFormData({
           name: '',
           phone: '',
+          email: '',
           location: '',
           product: productName,
           quantity: '1',
