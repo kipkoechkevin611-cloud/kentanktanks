@@ -15,6 +15,7 @@ const WhatsAppOrderModal: React.FC<WhatsAppOrderModalProps> = ({ isOpen, onClose
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    email: '',
     location: '',
     product: productName,
     quantity: '1',
@@ -24,63 +25,84 @@ const WhatsAppOrderModal: React.FC<WhatsAppOrderModalProps> = ({ isOpen, onClose
 
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!/^(\+254|0)?[7]\d{8}$/.test(formData.phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Please enter a valid Kenyan phone number';
     }
-    
+
     if (!formData.location.trim()) {
       newErrors.location = 'Location is required';
     }
-    
+
     if (!formData.product.trim()) {
       newErrors.product = 'Product selection is required';
     }
-    
+
     if (parseInt(formData.quantity) < 1) {
       newErrors.quantity = 'Quantity must be at least 1';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-    const message = `
-🌊 *KENTANK WATER TANK ORDER*
+    try {
+      const response = await fetch('/api/send-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email || 'not provided',
+          location: formData.location,
+          notes: formData.additionalNotes,
+          orderItems: [
+            {
+              name: formData.product,
+              capacity: 'N/A',
+              price: 'Contact for pricing',
+              quantity: formData.quantity,
+            }
+          ],
+          total: 'Contact for pricing',
+        }),
+      });
 
-👤 *Customer Details:*
-• Name: ${formData.name}
-• Phone: ${formData.phone}
-• Location: ${formData.location}
+      const result = await response.json();
 
-📦 *Order Details:*
-• Product: ${formData.product}
-• Quantity: ${formData.quantity}
-${formData.additionalNotes ? `• Notes: ${formData.additionalNotes}` : ''}
-
-🚚 *Delivery Information:*
-• Free countrywide delivery
-• 2-3 business days delivery time
-
-✅ *Please confirm my order and provide payment details.*
-    `.trim();
-
-    const whatsappUrl = `https://wa.me/2540784400492?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-    onClose();
+      if (result.success) {
+        alert('Order submitted successfully! We will contact you shortly.');
+        onClose();
+        setFormData({
+          name: '',
+          phone: '',
+          location: '',
+          product: productName,
+          quantity: '1',
+          additionalNotes: '',
+        });
+      } else {
+        alert('Failed to submit order. Please try again or call us directly.');
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert('Failed to submit order. Please try again or call us directly.');
+    }
   };
 
   return (
@@ -145,6 +167,21 @@ ${formData.additionalNotes ? `• Notes: ${formData.additionalNotes}` : ''}
               {errors.phone}
             </p>
           )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Email Address (Optional)
+          </label>
+          <div className="relative">
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+              placeholder="your@email.com"
+            />
+          </div>
         </div>
 
         <div>
@@ -230,14 +267,14 @@ ${formData.additionalNotes ? `• Notes: ${formData.additionalNotes}` : ''}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors"
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition-colors"
         >
           <ShoppingCart className="w-5 h-5" />
-          Submit Order via WhatsApp
+          Submit Order
         </motion.button>
 
         <p className="text-xs text-gray-500 text-center">
-          By submitting this form, you agree to be contacted via WhatsApp regarding your order.
+          By submitting this form, you agree to be contacted regarding your order.
         </p>
       </form>
     </Modal>

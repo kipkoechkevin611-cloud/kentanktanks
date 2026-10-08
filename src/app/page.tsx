@@ -33,7 +33,7 @@ import {
   Factory,
   Users,
   Clock,
-  MessageCircle,
+  Mail,
   MapPin,
   CreditCard
 } from 'lucide-react';
@@ -289,7 +289,7 @@ export default function Home() {
     {
       icon: CheckCircle,
       title: 'Secure Ordering',
-      description: 'Safe and secure ordering process via WhatsApp',
+      description: 'Safe and secure ordering process via email',
     },
   ];
 
@@ -347,21 +347,19 @@ export default function Home() {
                   Browse Products
                 </Button>
               </Link>
-              <a
-                href="https://wa.me/2540784400492"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setIsOrderModalOpen(true)}
                 className="flex-1 sm:flex-none min-w-[160px] md:min-w-[200px] inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white text-sm md:text-base lg:text-lg font-semibold py-3 md:py-4 px-4 md:px-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
-                Order via WhatsApp
-              </a>
+                <Mail className="w-4 h-4 md:w-5 md:h-5" />
+                Order Now
+              </button>
               <a
-                href="tel:+2540784400492"
+                href="tel:+254737042076"
                 className="flex-1 sm:flex-none min-w-[160px] md:min-w-[200px] inline-flex items-center justify-center gap-2 bg-white text-navy-900 hover:bg-gray-100 text-sm md:text-base lg:text-lg font-bold py-3 md:py-4 px-4 md:px-8 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer"
               >
                 <Phone className="w-4 h-4 md:w-5 md:h-5 text-orange-500" />
-                +254784400492
+                +254737042076
               </a>
             </div>
             
@@ -587,7 +585,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                icon: MessageCircle,
+                icon: Mail,
                 title: 'Choose Your Tank',
                 description: 'Browse our catalog and select the perfect tank for your needs',
                 step: '1',
@@ -595,7 +593,7 @@ export default function Home() {
               {
                 icon: ShoppingCart,
                 title: 'Place Your Order',
-                description: 'Order via WhatsApp or call us directly',
+                description: 'Order via our website or call us directly',
                 step: '2',
               },
               {

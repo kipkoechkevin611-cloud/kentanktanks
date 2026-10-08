@@ -40,73 +40,86 @@ const CartModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleWhatsAppCheckout = () => {
+  const handleWhatsAppCheckout = async () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    const message = cart
-      .map(
-        (item) =>
-          `• ${item.name} (${item.capacity}) - ${item.price} x ${item.quantity}`
-      )
-      .join('\n');
-    const total = cartTotal.toLocaleString();
-    const customerInfo = `
-Customer Details:
-• Name: ${formData.name}
-• Phone: ${formData.phone}
-• Email: ${formData.email}
-• Location: ${formData.location}
-${formData.notes ? `• Notes: ${formData.notes}` : ''}`;
+    try {
+      const response = await fetch('/api/send-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          location: formData.location,
+          notes: formData.notes,
+          orderItems: cart,
+          total: cartTotal.toLocaleString(),
+        }),
+      });
 
-    const whatsappMessage = encodeURIComponent(
-      `Hello, I would like to order:\n\n${message}\n\n*Total: KSh ${total}*\n\n${customerInfo}\n\nPlease contact me with delivery details and payment options.`
-    );
+      const result = await response.json();
 
-    setTimeout(() => {
-      window.open(`https://wa.me/2540784400492?text=${whatsappMessage}`, '_blank');
+      if (result.success) {
+        alert('Order submitted successfully! We will contact you shortly.');
+        clearCart();
+        setShowCheckoutForm(false);
+        onClose();
+        setFormData({ name: '', phone: '', email: '', location: '', notes: '' });
+      } else {
+        alert('Failed to submit order. Please try again or call us directly.');
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert('Failed to submit order. Please try again or call us directly.');
+    } finally {
       setIsSubmitting(false);
-      clearCart();
-      setShowCheckoutForm(false);
-      onClose();
-      setFormData({ name: '', phone: '', email: '', location: '', notes: '' });
-    }, 1000);
+    }
   };
 
-  const handleEmailCheckout = () => {
+  const handleEmailCheckout = async () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    const message = cart
-      .map(
-        (item) =>
-          `• ${item.name} (${item.capacity}) - ${item.price} x ${item.quantity}`
-      )
-      .join('\n');
-    const total = cartTotal.toLocaleString();
-    const customerInfo = `
-Customer Details:
-• Name: ${formData.name}
-• Phone: ${formData.phone}
-• Email: ${formData.email}
-• Location: ${formData.location}
-${formData.notes ? `• Notes: ${formData.notes}` : ''}`;
+    try {
+      const response = await fetch('/api/send-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          location: formData.location,
+          notes: formData.notes,
+          orderItems: cart,
+          total: cartTotal.toLocaleString(),
+        }),
+      });
 
-    const emailSubject = encodeURIComponent(`Water Tank Order - ${formData.name}`);
-    const emailBody = encodeURIComponent(
-      `Hello, I would like to order:\n\n${message}\n\nTotal: KSh ${total}\n\n${customerInfo}\n\nPlease contact me with delivery details and payment options.`
-    );
+      const result = await response.json();
 
-    setTimeout(() => {
-      window.open(`mailto:info@kentank.co.ke?subject=${emailSubject}&body=${emailBody}`, '_blank');
+      if (result.success) {
+        alert('Order submitted successfully! We will contact you shortly.');
+        clearCart();
+        setShowCheckoutForm(false);
+        onClose();
+        setFormData({ name: '', phone: '', email: '', location: '', notes: '' });
+      } else {
+        alert('Failed to submit order. Please try again or call us directly.');
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      alert('Failed to submit order. Please try again or call us directly.');
+    } finally {
       setIsSubmitting(false);
-      clearCart();
-      setShowCheckoutForm(false);
-      onClose();
-      setFormData({ name: '', phone: '', email: '', location: '', notes: '' });
-    }, 1000);
+    }
   };
 
   const deliveryInfo = {
@@ -377,28 +390,6 @@ ${formData.notes ? `• Notes: ${formData.notes}` : ''}`;
                     <button
                       onClick={handleWhatsAppCheckout}
                       disabled={isSubmitting}
-                      className="w-full bg-green-500 hover:bg-green-600 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                          >
-                            <ShoppingBag className="w-5 h-5" />
-                          </motion.div>
-                          Processing...
-                        </>
-                      ) : (
-                        <>
-                          <MessageCircle className="w-5 h-5" />
-                          Order via WhatsApp
-                        </>
-                      )}
-                    </button>
-                    <button
-                      onClick={handleEmailCheckout}
-                      disabled={isSubmitting}
                       className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
                     >
                       {isSubmitting ? (
@@ -414,7 +405,7 @@ ${formData.notes ? `• Notes: ${formData.notes}` : ''}`;
                       ) : (
                         <>
                           <Mail className="w-5 h-5" />
-                          Order via Email
+                          Submit Order
                         </>
                       )}
                     </button>

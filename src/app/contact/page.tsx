@@ -40,8 +40,8 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Phone',
-      details: ['+254784400492'],
-      action: 'tel:+2540784400492',
+      details: ['+254737042076'],
+      action: 'tel:+254737042076',
       color: 'bg-green-100 text-green-600',
     },
     {
@@ -127,14 +127,14 @@ export default function Contact() {
           {/* Quick Action Buttons */}
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <a
-              href="tel:+2540784400492"
+              href="tel:+254737042076"
               className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
             >
               <Phone className="w-5 h-5" />
               Call Now
             </a>
             <a
-              href="https://wa.me/2540784400492"
+              href="https://wa.me/254737042076"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
@@ -291,7 +291,7 @@ export default function Contact() {
               Get instant responses to your inquiries via WhatsApp
             </p>
             <a
-              href="https://wa.me/2540784400492"
+              href="https://wa.me/254737042076"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-green-500 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
